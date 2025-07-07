@@ -10,7 +10,7 @@ pipeline {
                     WORKDIR /app
                     COPY . /app
 
-                    RUN pip install --no-cache-dir flask
+                    RUN pip install flask
  
                     EXPOSE 5000
 
