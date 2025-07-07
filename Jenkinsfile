@@ -5,16 +5,16 @@ pipeline {
             steps {
                 script {
                     writeFile file: 'Dockerfile', text: '''
-                    FROM python:3.10-slim
+                FROM python:3.10-slim
 
-                    WORKDIR /app
-                    COPY . /app
+                WORKDIR /app
+                COPY . /app
 
-                    RUN pip install flask
- 
-                    EXPOSE 5000
+                RUN pip install flask
 
-                    CMD ["python", "app.py"]
+                EXPOSE 5000
+
+                CMD ["python", "app.py"]
                     '''
                 }
             }
@@ -22,7 +22,17 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'sudo docker build -t myimage .'
+                script {
+                    app = docker.build("flask-app")
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    app.run("-d -p 5000:5000 --name my-flask-container")
+                }
             }
         }
     }
