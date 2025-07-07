@@ -28,7 +28,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d --name firstcontainer -p 5000:5000 myimage'
+                sh 'sudo docker run -d --name firstcontainer -p 5000:5000 myimage'
             }
         }
     }
