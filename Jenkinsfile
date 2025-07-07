@@ -11,7 +11,7 @@ pipeline {
                     COPY . /app
 
                     RUN pip install --no-cache-dir flask
-
+ 
                     EXPOSE 5000
 
                     CMD ["python", "app.py"]
@@ -23,12 +23,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'sudo docker build -t myimage .'
-            }
-        }
-
-        stage('Run Docker Container') {
-            steps {
-                sh 'sudo docker run -d --name firstcontainer -p 5000:5000 myimage'
             }
         }
     }
