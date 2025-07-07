@@ -1,10 +1,11 @@
 pipeline {
     agent any
+
     stages {
         stage('Build Docker Image') {
             steps {
                 script {
-                    app = docker.build("flask-app")
+                    app = docker.build("ibrahimalish/first:latest")
                 }
             }
         }
@@ -17,6 +18,22 @@ pipeline {
                 }
             }
         }
+
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'USER',
+                    passwordVariable: 'PASS'
+                )]) {
+                    sh 'docker login -u $USER -p $PASS'
+                }
+
+
+                    sh 'docker push ibrahimalish/first:latest'
+                }
+            }
+        }
     }
 }
-
