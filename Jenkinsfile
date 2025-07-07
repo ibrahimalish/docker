@@ -13,12 +13,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    if [ "$(docker ps -aq -f name=my-flask-container)" ]; then
-                        docker stop my-flask-container || true
-                        docker rm my-flask-container || true
+                    if [ "$(docker ps -aq -f name=my-flask-app)" ]; then
+                        docker stop my-flask-app || true
+                        docker rm my-flask-app || true
                     fi
                     '''
-                    app.run("-d -p 5000:5000 --name my-flask-container")
+                    app.run("-d -p 5000:5000 --name my-flask-app")
                 }
             }
         }
