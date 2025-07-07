@@ -17,8 +17,8 @@ pipeline {
                     EXPOSE 5000
 
                     CMD ["python", "app.py"]
+                    '''
                 }
-                echo 'Dockerfile created.'
             }
         }
 
